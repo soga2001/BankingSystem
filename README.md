@@ -1,5 +1,5 @@
 # Final Project For CSCI2275
-This is a Banking System made using C++ with Hash Tables for better and easier accesses to user information.<br> 
+This is a Banking System made using C++ with **Hashing Data Structure** for better and easier accesses to user information.<br> 
 When the program is ran, a menu will appear with 3 options:<br>
   1) **Login:** When pressed, the user has to input their username and password after which, the program will try to find the username and if it is invalid, then it will either ask the user to create a new account or make sure the username or password is correct.<br>
           ->   After logging in, the user will have the choices to deposit, withdraw, check balance, and close your balance.
