@@ -88,7 +88,6 @@ int main(int argc, char const *argv[]){
                             {
                                 case 1:
                                 {
-                                    
                                     bank.printBalance(username, password);
                                     break;
                                 }

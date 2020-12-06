@@ -4,8 +4,9 @@
 
 //Suyogya Poudel
 
-using namespace std;    
+using namespace std; 
 
+//Makes everything in the hash table NULL
 Bank::Bank(int bsize)
 {
     this->tableSize = bsize;
@@ -21,6 +22,7 @@ string encodeCreds(string username, string password)
     return username+password;
 }
 
+//searches if the input from the user is within the hashtable. Returns true if there is and false if there isn't.
 bool Bank::login(string u, string p)
 {
     if(search(u,p))
@@ -30,7 +32,9 @@ bool Bank::login(string u, string p)
     return false;
 }
 
-bool Bank::createNewAccount(std::string u, std::string p)
+//searches if the input from the user is within the hashtable. Returm false if there is already a user with the username
+//if the user isn't found in the hash table than it inserts the user into the hashtable and returns true
+bool Bank::createNewAccount(string u, string p)
 {
     if(search(u, p))
     {
@@ -40,6 +44,7 @@ bool Bank::createNewAccount(std::string u, std::string p)
     return true;
 }
 
+//finds the user using the search function and adds the a(amount) to the current balance of the user
 void Bank::deposit(string a, string u, string p)
 {
     double amount = stod(a);
@@ -47,6 +52,8 @@ void Bank::deposit(string a, string u, string p)
     user->balance += amount;
 }
 
+//finds the user using the search function and can user can only withdraw if the money they are trying to withdraw is less than or equal 
+//to their balance
 void Bank::withdraw(string a, string u, string p)
 {
     
@@ -63,32 +70,36 @@ void Bank::withdraw(string a, string u, string p)
     
 }
 
+//goes to a specific index and checks
 bool Bank::deleteAccount(string u, string p)
 {
     string encoded =  encodeCreds(u,p);
-    int index = stringToASCII(encoded);
+    int index = stringToASCII(u);
     info* userLL = hashTable[index];
-    while(userLL->username == u && userLL->balance != 0)
+    while(userLL->userID == encoded && userLL->balance != 0)
     {
         cout<<"\nPlease withdraw all of the money currently in your account before closing it.\n"<<endl;
         return false;
     }
-    hashTable[index] = NULL;
+    userLL = NULL;
     return true;
 }
 
+//uses the search function to get the user information and prints the users balance
 void Bank::printBalance(string u, string p)
 {
     info *user = search(u,p);
     cout<<"\nCurrent Balance: $"<<user->balance<<"\n"<<endl;
 }
 
+//inserts the user at a specific index, which is the ASCII value of the username
+//and if inserted returns true else returns false
 bool Bank::insert(string u, string p)
 {
     if(!search(u,p))
     {
         string encoded = encodeCreds(u,p);
-        int index = stringToASCII(encoded);
+        int index = stringToASCII(u);
         info *temp = hashTable[index];
         info *insert= new info;
         if(temp)//collision
@@ -118,28 +129,32 @@ bool Bank::insert(string u, string p)
         return false;
     }
     return true;
-
-    //an attempt at probing
     
     
 }
 
 //can also be called hashSum and it just turns the username into an ascii
-int Bank::stringToASCII( string up ) {
-    int seed = 101;
-    unsigned int hash = 0;
-    for(int i = 0; i < up.length(); i++) {
-        hash = (hash * seed) + up[i];
+int Bank::stringToASCII(string u)
+{
+    int l = u.length();
+    int convert = 0;
+    for(int i = 0; i < l; i++)
+    {
+        convert += u[i];
     }
+    int sum = convert % tableSize;
+    // cout<<sum<<endl;
+    return sum;
 
-    hash = hash % tableSize;
-    return hash;
 }
 
+//goes to the specific index that was gotten from the ASCII of the username 
+//and if the userID of the temp is the same as username+password
+//than it returns if user otherwise returns NULL if the user wasn't found
 info* Bank::search(string u, string p)
 {
     string encoded = encodeCreds(u,p);
-    int index = stringToASCII(encoded);
+    int index = stringToASCII(u);
     info *temp = hashTable[index];
     while(temp)
     {
@@ -152,7 +167,10 @@ info* Bank::search(string u, string p)
     return NULL;
 }
 
-//too check is the inputs are numbers so that the program doesn't go to an infinite loop if the input is not a number
+//To check if the user inputs are numbers. I ran into a problem where my program ran into
+//an infinite loop if the user input were letters instead of int or double
+//This function was made so that I can make sure my program doesn't go into an infinite loop
+//instead just askes the user to input a number that is in the menu
 bool Bank::isNum(string num)
 {
     for(int i = 0; i< num.length(); i++)
@@ -164,3 +182,4 @@ bool Bank::isNum(string num)
     }
     return true;
 }
+

@@ -31,7 +31,6 @@ class Bank
         bool deleteAccount(string username, string password);
         void printBalance(string username, string password);//done
         bool isNum(string num);
-        void printTable();
 
     private:
         bool insert(string username, string password);//done
