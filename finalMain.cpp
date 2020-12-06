@@ -7,16 +7,20 @@
 
 #include "Final.h"
 
+//Suyogya Poudel
+
 using namespace std;
 
 int main(int argc, char const *argv[]){
-	bool exit = false; 
+    bool exit = false; 
     bool exit2 = false;
-    Bank bank(10000);
+    Bank bank(1000);
     cout<<"\nHi, Welcome to Suyogya's Banking System.\n"<<endl;
     while(exit == false){
         ///menu
-            std::string dmenu = "======Main Menu=====\n"
+            std::string dmenu = "###############\n"
+                    "#  Main Menu  #\n"
+                    "###############\n"
                     "1. Login\n"
                     "2. New to our banking system? Create A New Account\n"
                     "3. Quit";
@@ -53,8 +57,10 @@ int main(int argc, char const *argv[]){
                 {
                     while(exit2 == false)
                     {
-                        cout<<"\nLogin Successful!\n"<<endl;
-                        string loginMenu = "----------Login Menu----------\n"
+                        cout<<"\nLogin Successful!\n"<<endl;    
+                        string loginMenu = "################\n"
+                        "#  Login Menu  #\n"
+                        "################\n"
                         "1. Check Balance\n"
                         "2. Deposit\n"
                         "3. Withdraw\n"
@@ -83,15 +89,14 @@ int main(int argc, char const *argv[]){
                                 case 1:
                                 {
                                     
-                                    // bank.printTable();
-                                    bank.printBalance(username);
+                                    bank.printBalance(username, password);
                                     break;
                                 }
 
                                 case 2:
                                 {
                                     string amount;
-                                    bank.printBalance(username);
+                                    bank.printBalance(username, password);
                                     cout<<"How much would you like to deposit?"<<endl;
                                     cin>>amount;
                                     while(!bank.isNum(amount))
@@ -99,8 +104,8 @@ int main(int argc, char const *argv[]){
                                         cout<<"Please enter numbers"<<endl;
                                         cin>>amount;
                                     }
-                                    bank.deposit(amount, username);
-                                    bank.printBalance(username);
+                                    bank.deposit(amount, username, password);
+                                    bank.printBalance(username, password);
                                     
                                     break;
                                 }
@@ -108,7 +113,7 @@ int main(int argc, char const *argv[]){
                                 case 3:
                                 {
                                     string amount;
-                                    bank.printBalance(username);
+                                    bank.printBalance(username, password);
                                     cout<<"How much would you like to withdraw?"<<endl;
                                     cin>>amount;
                                     while(!bank.isNum(amount))
@@ -116,27 +121,23 @@ int main(int argc, char const *argv[]){
                                         cout<<"Please enter numbers"<<endl;
                                         cin>>amount;
                                     }
-                                    bank.withdraw(amount, username);
-                                    bank.printBalance(username);
+                                    bank.withdraw(amount, username, password);
+                                    bank.printBalance(username, password);
 
                                     break;
                                 }
 
                                 case 4:
                                 {
-                                    string userName;
                                     string passWord;
                                     cout<<"\nTo make sure no one other then the owner of the account can close their account"<<endl;
-                                    cout<<"Please re-enter your username:"<<endl;
-                                    cin>>userName;
                                     cout<<"Please re-enter your password:"<<endl;
                                     cin>>passWord;
-                                    if(bank.deleteAccount(userName, passWord))
+                                    if(bank.deleteAccount(username, passWord))
                                     {
-                                        cout<<"Your account has been closed."<<endl;
+                                        cout<<"Your account has been closed.\n"<<endl;
                                         exit2 = true;
                                     }
-                                    
                                     break;
                                 }
 
@@ -157,7 +158,7 @@ int main(int argc, char const *argv[]){
                 }
                 else
                 {
-                    cout<<"The username or password is invalid. Please try again."<<endl;
+                    cout<<"\nThe username or password is invalid. Please try again.\n"<<endl;
                 }
                 
                 exit2 = false;
@@ -205,5 +206,4 @@ int main(int argc, char const *argv[]){
         cout << dmenu << endl;
     }
     }
-
 }

@@ -2,15 +2,9 @@
 #include "Final.h"
 #include <array> 
 
-using namespace std;
+//Suyogya Poudel
 
-info* Bank::createNode(string u, info* next)
-{
-    info *user = new info;
-    user->username = u;
-    user->next = next;
-    return user;
-}
+using namespace std;    
 
 Bank::Bank(int bsize)
 {
@@ -22,9 +16,14 @@ Bank::Bank(int bsize)
     }
 }
 
+string encodeCreds(string username, string password)
+{
+    return username+password;
+}
+
 bool Bank::login(string u, string p)
 {
-    if(search(u, p))
+    if(search(u,p))
     {
         return true;
     }
@@ -41,34 +40,35 @@ bool Bank::createNewAccount(std::string u, std::string p)
     return true;
 }
 
-void Bank::deposit(string a, string u)
+void Bank::deposit(string a, string u, string p)
 {
-    int index = stringToASCII(u);
     double amount = stod(a);
-    hashTable[index]->balance += amount;
+    info* user = search(u, p);
+    user->balance += amount;
 }
 
-void Bank::withdraw(string a, string u)
+void Bank::withdraw(string a, string u, string p)
 {
-    int index = stringToASCII(u);
+    
     double amount = stod(a);
-    if(amount > hashTable[index]->balance)
+    info* user = search(u,p);
+    if(amount > user->balance)
     {
         cout<<"\nThe amount you are currently trying to withdraw is greather than what is in your bank account. Please try again.\n"<<endl;
     }
     else
     {
-        hashTable[index]->balance -= amount;
-        // user->balance -= amount;
-        // cout<<"\nNew balance: "<<user.balance<<"\n"<<endl;
+        user->balance -= amount;
     }
     
 }
 
 bool Bank::deleteAccount(string u, string p)
 {
-    int index = stringToASCII(u);
-    if(hashTable[index] != NULL && search(u,p) && hashTable[index]->balance != 0)
+    string encoded =  encodeCreds(u,p);
+    int index = stringToASCII(encoded);
+    info* userLL = hashTable[index];
+    while(userLL->username == u && userLL->balance != 0)
     {
         cout<<"\nPlease withdraw all of the money currently in your account before closing it.\n"<<endl;
         return false;
@@ -77,99 +77,79 @@ bool Bank::deleteAccount(string u, string p)
     return true;
 }
 
-void Bank::printBalance(string u)
+void Bank::printBalance(string u, string p)
 {
-    int index = stringToASCII(u);
-    cout<<"\nCurrent Balance: "<<hashTable[index]->balance<<"\n"<<endl;
+    info *user = search(u,p);
+    cout<<"\nCurrent Balance: $"<<user->balance<<"\n"<<endl;
 }
 
 bool Bank::insert(string u, string p)
 {
-    // if(!search(u,p))
-	// {
-	// 	int index = stringToASCII(u);
-	// 	info *temp = hashTable[index];
-	// 	info *insert= new info;
-	// 	insert->username = u;
-    //     insert->password = p;
-    //     insert->balance = 0;
-	// 	insert->next = NULL;
-	// 	if(temp)//collision
-	// 	{
-	// 		while(temp->next)
-	// 		{
-	// 			temp = temp->next;
-	// 		}
-    //         insert->username = u;
-    //         insert->password = p;
-    //         insert->balance = 0;
-	// 		temp->next = insert;
-	// 	}
-	// 	else//no collision
-	// 	{
-    //         insert->username = u;
-    //         insert->password = p;
-    //         insert->balance = 0;
-    //         insert->next = NULL;
-	// 		hashTable[index] = insert;
-	// 	}
-	// }
-	// else
-	// {
-	// 	return false;
-	// }
-    // return true;
-
-    int index = stringToASCII(u);
-
-    while(hashTable[index] != NULL) //&& hashTable[index]->username != u)
+    if(!search(u,p))
     {
-        index++;
-        index %= tableSize;
+        string encoded = encodeCreds(u,p);
+        int index = stringToASCII(encoded);
+        info *temp = hashTable[index];
+        info *insert= new info;
+        if(temp)//collision
+        {
+            while(temp->next)
+            {
+                temp = temp->next;
+            }
+            insert->userID = encoded;
+            insert->username = u;
+            insert->password = p;
+            insert->balance = 0;
+            temp->next = insert;
+        }
+        else//no collision
+        {
+            insert->userID = encoded;
+            insert->username = u;
+            insert->password = p;
+            insert->balance = 0;
+            insert->next = NULL;
+            hashTable[index] = insert;
+        }
     }
-    hashTable[index]->username = u;
-    hashTable[index]->password = p;
-    hashTable[index]->balance = 0;
+    else
+    {
+        return false;
+    }
+    return true;
+
+    //an attempt at probing
+    
     
 }
 
 //can also be called hashSum and it just turns the username into an ascii
-int Bank::stringToASCII(string u)
-{
-    int l = u.length();
-    int convert = 0;
-    for(int i = 0; i < l; i++)
-    {
-        convert += u[i];
+int Bank::stringToASCII( string up ) {
+    int seed = 101;
+    unsigned int hash = 0;
+    for(int i = 0; i < up.length(); i++) {
+        hash = (hash * seed) + up[i];
     }
-    int sum = convert % tableSize;
-    // cout<<sum<<endl;
-    return sum;
-     
+
+    hash = hash % tableSize;
+    return hash;
 }
 
-bool Bank::search(string u, string p)
+info* Bank::search(string u, string p)
 {
-    // int index = stringToASCII(u);
-    // // if(hashTable[index] != NULL)
-    // if(hashTable[index]->username == u && hashTable[index]->password == p)
-    // {
-    //     user = hashTable[index];
-    //     return true;
-    // }
-    // return false;
-
-    int index = stringToASCII(u);
-	info *temp = hashTable[index];
-	while(temp)
-	{
-		if(temp->username == u && temp->password == p)
-		{
-			return hashTable[index];
-		}
-		temp = temp->next;
-	}
-	return NULL;
+    string encoded = encodeCreds(u,p);
+    int index = stringToASCII(encoded);
+    info *temp = hashTable[index];
+    while(temp)
+    {
+        if(temp->userID == encoded)
+        {
+            return temp;
+        }
+        temp = temp->next;
+    }
+    return NULL;
 }
 
 //too check is the inputs are numbers so that the program doesn't go to an infinite loop if the input is not a number
@@ -184,19 +164,3 @@ bool Bank::isNum(string num)
     }
     return true;
 }
-
-//Since the HashTable size is 10000, please lower the
-// void Bank::printTable()
-// {
-// 	for(int i = 0; i < tableSize; i++)
-// 	{
-// 		cout<<i<<" || ";
-// 		info *temp = hashTable[i];
-// 		while(temp)
-// 		{
-// 			cout<<temp->username<<" ";
-// 			temp = temp->next;
-// 		}
-// 		cout<<endl;	
-// 	}
-// }

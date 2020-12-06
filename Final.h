@@ -1,6 +1,8 @@
 #include <iostream>
 #include <array>
 
+//Suyogya Poudel
+
 using namespace std;
 
 struct info
@@ -10,8 +12,7 @@ struct info
     double balance;
 
     struct info*next;
-    // info *next;
-    // info *prev;
+    string userID;
 };
 
 class Bank
@@ -23,20 +24,17 @@ class Bank
 
     public:
         Bank(int bsize);
-        // info hashTable[10000];
         bool login(std::string username, std::string password);//done
         bool createNewAccount(std::string username, std::string password);//done
-        void deposit(string amount, string username);//done
-        void withdraw(string amount, string username);
+        void deposit(string amount, string username, string password);//done
+        void withdraw(string amount, string username, string password);
         bool deleteAccount(string username, string password);
-        void printBalance(string username);//done
+        void printBalance(string username, string password);//done
         bool isNum(string num);
         void printTable();
 
     private:
         bool insert(string username, string password);//done
-        int stringToASCII(string username);//done
-        bool search(std::string username, string password);//done
-        // int tableSize;
-        // info* user;
+        int stringToASCII(string namePass);//done
+        info* search(std::string username, string password);//done
 }; 
