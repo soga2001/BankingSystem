@@ -17,6 +17,7 @@ Bank::Bank(int bsize)
     }
 }
 
+//returns a unique string which will be used as a user's userID
 string encodeCreds(string username, string password)
 {
     return username+password;
@@ -102,6 +103,7 @@ bool Bank::insert(string u, string p)
         int index = stringToASCII(u);
         info *temp = hashTable[index];
         info *insert= new info;
+        insert->next = NULL;
         if(temp)//collision
         {
             while(temp->next)
@@ -120,7 +122,6 @@ bool Bank::insert(string u, string p)
             insert->username = u;
             insert->password = p;
             insert->balance = 0;
-            insert->next = NULL;
             hashTable[index] = insert;
         }
     }
@@ -183,3 +184,17 @@ bool Bank::isNum(string num)
     return true;
 }
 
+// void Bank::printTable()
+// {
+// 	for(int i = 0; i < tableSize; i++)
+// 	{
+// 		cout<<i<<" || ";
+// 		info *temp = hashTable[i];
+// 		while(temp)
+// 		{
+// 			cout<<temp->username<<" || ";
+// 			temp = temp->next;
+// 		}
+// 		cout<<endl;
+// 	}
+// }
