@@ -16,7 +16,7 @@ To download my program, click the green "Code" button on my finalproject Github 
 ->To run the program, simply open the terminal of the editor. Complie it using "g++ -std=c++11 finalMain.cpp final.cpp -o final( or any name of your choice)". Afterwards enter "./final" to run the program. Then create an account using "Option 2" or just enter "2" into the terminal. After that you can login using the account you just created.<br><br>
 
 **Extra**<br>
-Also there is a function commented out called "printTable()" from all of the files. If you uncomment that, when you press "1" in the **Login Menu**, it prints the hash table. If you want to see how my program runs with collision, create 2 account one with username "GoCatGo." and another with "GoDog,Go".
+There is a function commented out called "printTable()" from all of the files. If you uncomment that, when you press "1" in the **Login Menu**, it prints the hash table. If you want to see how my program runs with collision, create 2 account one with username "GoCatGo." and another with "GoDog,Go".
 
 No additional system requirements.
 
