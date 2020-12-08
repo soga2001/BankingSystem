@@ -20,7 +20,7 @@ There is a function that is commented out called "printTable()" from all of the 
 -> **final.cpp**: at the very end of the final.<br>
 ->**finalMain.cpp**: Case 1 of the "Login Menu".<br>
 ->**Final.h**: Line 31.<br>
-If you uncomment that, when you press "1" in the **Login Menu**, it prints the hash table. If you want to see how my program runs with collision, create 2 account one with username "GoCatGo." and another with "GoDog,Go".
+If you uncomment that, when you press "1" in the **Login Menu**, it prints the hash table. If you want to see how my program runs with collision, create 2 account. One with username "GoCatGo." and another with "GoDog,Go".
 
 No additional system requirements.
 
