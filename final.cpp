@@ -71,20 +71,32 @@ void Bank::withdraw(string a, string u, string p)
     
 }
 
-//goes to a specific index and checks
+//checks if the password that from the user input matches the password of the account
+//if it does than it deletes everything in the index
+//else lets the user know that their password is wrong and return false
 bool Bank::deleteAccount(string u, string p)
 {
     string encoded =  encodeCreds(u,p);
     int index = stringToASCII(u);
-    info* userLL = hashTable[index];
+    info *userLL = hashTable[index];
     while(userLL->userID == encoded && userLL->balance != 0)
     {
         cout<<"\nPlease withdraw all of the money currently in your account before closing it.\n"<<endl;
         return false;
     }
-    userLL = NULL;
-    return true;
+    if(userLL->password == p)
+    {
+        hashTable[index] = NULL;
+        return true;
+    }
+    else
+    {
+        cout<<"\nYour password is invalid.\n"<<endl;
+    }
+    
+    return false;
 }
+
 
 //uses the search function to get the user information and prints the users balance
 void Bank::printBalance(string u, string p)
@@ -184,17 +196,17 @@ bool Bank::isNum(string num)
     return true;
 }
 
-// void Bank::printTable()
-// {
-// 	for(int i = 0; i < tableSize; i++)
-// 	{
-// 		cout<<i<<" || ";
-// 		info *temp = hashTable[i];
-// 		while(temp)
-// 		{
-// 			cout<<temp->username<<" || ";
-// 			temp = temp->next;
-// 		}
-// 		cout<<endl;
-// 	}
-// }
+void Bank::printTable()
+{
+	for(int i = 0; i < tableSize; i++)
+	{
+		cout<<i<<" || ";
+		info *temp = hashTable[i];
+		while(temp)
+		{
+			cout<<temp->username<<" || ";
+			temp = temp->next;
+		}
+		cout<<endl;
+	}
+}

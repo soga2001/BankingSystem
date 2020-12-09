@@ -11,7 +11,8 @@ struct info
     string password;
     double balance;
 
-    struct info*next;
+    struct info *next;
+    struct info *prev;
     string userID;
 };
 
@@ -28,7 +29,7 @@ class Bank
         bool deleteAccount(string username, string password);
         void printBalance(string username, string password);//done
         bool isNum(string num);//done
-        // void printTable();//done
+        void printTable();//done
         bool insert(string username, string password);//done
         int stringToASCII(string namePass);//done
         info* search(std::string username, string password);//done

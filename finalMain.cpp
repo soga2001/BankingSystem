@@ -88,7 +88,7 @@ int main(int argc, char const *argv[]){
                             {
                                 case 1:
                                 {
-                                    // bank.printTable();
+                                    bank.printTable();
                                     bank.printBalance(username, password);
                                     break;
                                 }
@@ -135,7 +135,7 @@ int main(int argc, char const *argv[]){
                                     cin>>passWord;
                                     if(bank.deleteAccount(username, passWord))
                                     {
-                                        cout<<"Your account has been closed.\n"<<endl;
+                                        cout<<"\nYour account has been closed.\n"<<endl;
                                         exit2 = true;
                                     }
                                     break;
