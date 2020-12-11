@@ -79,21 +79,20 @@ int main(int argc, char const *argv[]){
                             {
                                 cout<<"Please Enter An Integer Between 1 and 5."<<endl;
                                 cin>>login;
-                                // break;
                             }
 
                             int choice2 = stoi(login);
 
                             switch(choice2)
                             {
-                                case 1:
+                                case 1://prints the balance of the user
                                 {
-                                    bank.printTable();
+                                    // bank.printTable();
                                     bank.printBalance(username, password);
                                     break;
                                 }
 
-                                case 2:
+                                case 2://takes a stirng as an input, if the input doesn't have any alphabets, and uses the amount as a parameter on the deposit function
                                 {
                                     string amount;
                                     bank.printBalance(username, password);
@@ -110,7 +109,7 @@ int main(int argc, char const *argv[]){
                                     break;
                                 }
 
-                                case 3:
+                                case 3://takes a stirng as an input, if the input doesn't have any alphabets, and uses the amount as a parameter on the withdraw function
                                 {
                                     string amount;
                                     bank.printBalance(username, password);
@@ -127,7 +126,7 @@ int main(int argc, char const *argv[]){
                                     break;
                                 }
 
-                                case 4:
+                                case 4://takes the user's password as an input and uses that as a parameter in the delete account function
                                 {
                                     string passWord;
                                     cout<<"\nTo make sure no one other then the owner of the account can close their account"<<endl;
@@ -166,7 +165,7 @@ int main(int argc, char const *argv[]){
                 break;
     
             }
-            case 2:
+            case 2://takes the user's input for username and passwords and uses that as a parameter for the createNewAccount function
             {
                 string username;
                 string password;
@@ -178,7 +177,7 @@ int main(int argc, char const *argv[]){
                 cin>>password;
                 cout<<"Please retype your password"<<endl;
                 cin>>password2;
-                while(password != password2)
+                while(password != password2)//repeat while the 2nd password doesn't match the first password
                 {
                     cout<<"Please make sure the password matches"<<endl;
                     cin>>password2;

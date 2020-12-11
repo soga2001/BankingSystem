@@ -71,30 +71,53 @@ void Bank::withdraw(string a, string u, string p)
     
 }
 
-//checks if the password that from the user input matches the password of the account
-//if it does than it deletes everything in the index
-//else lets the user know that their password is wrong and return false
+//checks if the password that from the user input matches the password of the account using the search function
+//if the password matches, sets the user node to the value gotten from the search function
+//if it does
+        //if is it the only user in the index, deletes everything in the index
+        //if there is another user in the previous node of the user, makes the prev users next node NULL
+        //if there is another user in the next node of the user, makes the next users previous node NULL
+        //if there is a user in the previous node and the next node, connects the previous and the next node
+        //at the end deletes the node and returns true
 bool Bank::deleteAccount(string u, string p)
 {
     string encoded =  encodeCreds(u,p);
     int index = stringToASCII(u);
-    info *userLL = hashTable[index];
+    info *userLL;
+    if(search(u,p))
+    {
+        userLL = search(u,p);
+    }
+    else
+    {
+        cout<<"\nYour password is incorrect\n"<<endl;
+        return false;
+    }
+    
     while(userLL->userID == encoded && userLL->balance != 0)
     {
         cout<<"\nPlease withdraw all of the money currently in your account before closing it.\n"<<endl;
         return false;
     }
-    if(userLL->password == p)
+    if(userLL->prev != NULL)
     {
-        hashTable[index] = NULL;
-        return true;
+        userLL->prev->next = NULL;
+    }
+    else if(userLL->next != NULL)
+    {
+        userLL->next->prev = NULL;
+    }
+    else if(userLL->next && userLL->prev)
+    {
+        userLL->next->prev = userLL->prev;
+        userLL->prev->next = userLL->next;
     }
     else
     {
-        cout<<"\nYour password is invalid.\n"<<endl;
+        hashTable[index] = NULL;
     }
-    
-    return false;
+    delete userLL;
+    return true;
 }
 
 
@@ -116,6 +139,7 @@ bool Bank::insert(string u, string p)
         info *temp = hashTable[index];
         info *insert= new info;
         insert->next = NULL;
+        // insert->prev = NULL;
         if(temp)//collision
         {
             while(temp->next)
@@ -126,11 +150,13 @@ bool Bank::insert(string u, string p)
             insert->username = u;
             insert->password = p;
             insert->balance = 0;
+            insert->prev = temp;
             temp->next = insert;
         }
         else//no collision
         {
             insert->userID = encoded;
+            insert->prev = NULL;
             insert->username = u;
             insert->password = p;
             insert->balance = 0;
@@ -142,8 +168,6 @@ bool Bank::insert(string u, string p)
         return false;
     }
     return true;
-    
-    
 }
 
 //can also be called hashSum and it just turns the username into an ascii
@@ -158,7 +182,6 @@ int Bank::stringToASCII(string u)
     int sum = convert % tableSize;
     // cout<<sum<<endl;
     return sum;
-
 }
 
 //goes to the specific index that was gotten from the ASCII of the username 
