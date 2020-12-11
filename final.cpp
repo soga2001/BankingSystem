@@ -75,9 +75,9 @@ void Bank::withdraw(string a, string u, string p)
 //if the password matches, sets the user node to the value gotten from the search function
 //if it does
         //if is it the only user in the index, deletes everything in the index
-        //if there is another user in the previous node of the user, makes the prev users next node NULL
-        //if there is another user in the next node of the user, makes the next users previous node NULL
-        //if there is a user in the previous node and the next node, connects the previous and the next node
+        //if the previous node isn't NULL, makes the prev nodes next node NULL
+        //if the next node isn't NULL, makes the next nodes previous node NULL
+        //if the next and the previous node isn't NULL, connects the previous and the next node
         //at the end deletes the node and returns true
 bool Bank::deleteAccount(string u, string p)
 {
