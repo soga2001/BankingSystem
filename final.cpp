@@ -99,24 +99,34 @@ bool Bank::deleteAccount(string u, string p)
         cout<<"\nPlease withdraw all of the money currently in your account before closing it.\n"<<endl;
         return false;
     }
-    if(userLL->prev != NULL)
-    {
-        userLL->prev->next = NULL;
-    }
-    else if(userLL->next != NULL)
-    {
-        userLL->next->prev = NULL;
-    }
-    else if(userLL->next && userLL->prev)
+    if(userLL->next != NULL && userLL->prev != NULL)
     {
         userLL->next->prev = userLL->prev;
         userLL->prev->next = userLL->next;
+        delete userLL;
+        return true;
+    }
+    else if(userLL->prev != NULL)
+    {
+        userLL->prev->next = NULL;
+        delete userLL;
+        return true;
+    }
+    else if(userLL->next != NULL)
+    {
+        // userLL->next->prev = NULL;
+        delete userLL;
+        userLL = userLL->next;
+        return true;
+        // delete userLL;
     }
     else
     {
         hashTable[index] = NULL;
+        delete userLL;
+        return true;
     }
-    delete userLL;
+    
     return true;
 }
 
@@ -194,7 +204,7 @@ info* Bank::search(string u, string p)
     info *temp = hashTable[index];
     while(temp)
     {
-        if(temp->userID == encoded)
+        if(temp->userID == encoded && temp->username == u)
         {
             return temp;
         }
