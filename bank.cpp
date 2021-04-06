@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Final.h"
+#include "bank.h"
 #include <array> 
 
 //Suyogya Poudel
@@ -213,21 +213,22 @@ info* Bank::search(string u, string p)
     return NULL;
 }
 
+//not needed as of right now due to there being default cases. Will be improving this function to be able to deposit or withdraw double instead of just integers
 //To check if the user inputs are numbers. I ran into a problem where my program ran into
 //an infinite loop if the user input were letters instead of int or double
 //This function was made so that I can make sure my program doesn't go into an infinite loop
 //instead just askes the user to input a number that is in the menu
-bool Bank::isNum(string num)
-{
-    for(int i = 0; i< num.length(); i++)
-    {
-        if(isdigit(num[i]) == false)
-        {
-            return false;
-        }
-    }
-    return true;
-}
+// bool Bank::isNum(string num)
+// {
+//     for(int i = 0; i< num.length(); i++)
+//     {
+//         if(isdigit(num[i]) == false)
+//         {
+//             return false;
+//         }
+//     }
+//     return true;
+// }
 
 void Bank::printTable()
 {

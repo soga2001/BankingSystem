@@ -5,7 +5,7 @@
 #include <iostream>
 #include <array>
 
-#include "Final.h"
+#include "bank.h"
 
 //Suyogya Poudel
 
@@ -34,12 +34,7 @@ int main(int argc, char const *argv[]){
         
         cin.clear();
         cin.ignore();
-        while(!bank.isNum(Choice))
-        {
-            cout<<"Please Enter An Integer Between 1 and 3."<<endl;
-            cin>>Choice;
-            // break;
-        }
+
         int choice = stoi(Choice);
         
         switch (choice) 
@@ -75,12 +70,6 @@ int main(int argc, char const *argv[]){
                         {
                             cin.clear();
                             cin.ignore();
-                            while(!bank.isNum(login))
-                            {
-                                cout<<"Please Enter An Integer Between 1 and 5."<<endl;
-                                cin>>login;
-                            }
-
                             int choice2 = stoi(login);
 
                             switch(choice2)
@@ -98,11 +87,11 @@ int main(int argc, char const *argv[]){
                                     bank.printBalance(username, password);
                                     cout<<"How much would you like to deposit?"<<endl;
                                     cin>>amount;
-                                    while(!bank.isNum(amount))
-                                    {
-                                        cout<<"Please enter numbers"<<endl;
-                                        cin>>amount;
-                                    }
+                                    // while(!bank.isNum(amount))
+                                    // {
+                                    //     cout<<"Please enter numbers"<<endl;
+                                    //     cin>>amount;
+                                    // }
                                     bank.deposit(amount, username, password);
                                     bank.printBalance(username, password);
                                     
@@ -115,11 +104,11 @@ int main(int argc, char const *argv[]){
                                     bank.printBalance(username, password);
                                     cout<<"How much would you like to withdraw?"<<endl;
                                     cin>>amount;
-                                    while(!bank.isNum(amount))
-                                    {
-                                        cout<<"Please enter numbers"<<endl;
-                                        cin>>amount;
-                                    }
+                                    // while(!bank.isNum(amount))
+                                    // {
+                                    //     cout<<"Please enter numbers"<<endl;
+                                    //     cin>>amount;
+                                    // }
                                     bank.withdraw(amount, username, password);
                                     bank.printBalance(username, password);
 
@@ -145,6 +134,11 @@ int main(int argc, char const *argv[]){
                                     exit2 = true;
                                     cout<<endl;
                                     break;
+                                }
+
+                                default:
+                                {
+                                    cout<<"Invalid input"<<endl;
                                 }
                             }
                             if(exit2)
@@ -197,6 +191,11 @@ int main(int argc, char const *argv[]){
             {
                 exit = true;
                 break;
+            }
+
+            default:
+            {
+                cout<<"Invalid input"<<endl;
             }
         }
         if (exit) {
