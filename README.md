@@ -9,14 +9,14 @@ When the program is ran, a menu will appear with 3 options:<br>
 ---
   
 ### Collisin Resolution<br>
--> Since it is a banking system, there will undoubtedly be collision between 2 username where their ASCII is the same. For that reason, I used chaining in my program where every index was initilized as NULL. When 2 account with same ASCII is created, they are inserted in the same index but their properties are different. In this case, each user in the same chain would have their own unqiue userID, username, password and balance. When an item is inserted in an index, the next value within the said index will be Null. When there are more than one user in an index, they are linked by a doubly linked list so that searching in an index will be possible, also for deleting purposes.<br><br>
+> Since it is a banking system, there will undoubtedly be collision between 2 username where their ASCII is the same. For that reason, I used chaining in my program where every index was initilized as NULL. When 2 account with same ASCII is created, they are inserted in the same index but their properties are different. In this case, each user in the same chain would have their own unqiue userID, username, password and balance. When an item is inserted in an index, the next value within the said index will be Null. When there are more than one user in an index, they are linked by a doubly linked list so that searching in an index will be possible, also for deleting purposes.<br><br>
 
 ---
 
 ### Download<br>
 To download my program, click the green "Code" button on my BankingSystem Github page. Then press the "Download.ZIP" which is the very last button on the dropdown menu. After downloading, extract everything from the .ZIP folder and open the folder with the text editor of your choice.<br>
-->To run the program, simply open the terminal of the editor. Complie it using "g++ -std=c++11 bankMain.cpp bank.cpp -o bank( or any name of your choice)" or "g++ bankMain.cpp bank.cpp -o bank". Afterwards enter "./bank" to run the program. Then create an account using "Option 2" or just enter "2" into the terminal. After that you can login using the account you just created. This is for windows, I am not sure how to run it on a mac.<br>
-->No additional system requirements.<br><br>
+> To run the program, simply open the terminal of the editor. Complie it using "g++ -std=c++11 bankMain.cpp bank.cpp -o bank( or any name of your choice)" or "g++ bankMain.cpp bank.cpp -o bank". Afterwards enter "./bank" to run the program. Then create an account using "Option 2" or just enter "2" into the terminal. After that you can login using the account you just created. This is for windows, I am not sure how to run it on a mac.<br>
+> No additional system requirements.<br><br>
 
 ---
 
